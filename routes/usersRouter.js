@@ -33,20 +33,35 @@ usersRouter.get('/:id', async (req, res) => {
 // Register route
 usersRouter.post('/', async (req, res) => {
     try {
-        const { email, password, name, picture } = req.body;
+        const { email, password } = req.body;
         if (password) {
             const passwordDigest = await hash(password);
             const user = await User.create({
                 email,
                 password_digest: passwordDigest,
-                name,
             });
             const userData = {
                 id: user.id,
-                name: user.name,
                 email: user.email,
-                picture: user.picture,
             };        
+            const token = encode(userData);
+            res.json({ 
+                token,
+                userData
+            });
+        } else {
+            const user = await User.create({
+                email,
+            })
+            const userData = {
+                id: user.id,
+                email: user.email,
+            };
+            const token = encode(userData);
+            res.json({
+                token,
+                userData
+            }); 
         }
     } catch(e) {
         console.log(e);
