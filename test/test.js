@@ -1,18 +1,30 @@
 const chai = require('chai');
-const request = require('request');
+const chaiHttp = require('chai-http');
+const app = require('../server');
 
-const expect = chai.expect;
+chai.use(chaiHttp);
+chai.should();
 
-it('Main page content', function(done) {
-    request('http://localhost:3001', function(error, response, body) {
-        expect(body).to.equal('Welcome to Class');
-        done();
+describe('Status and content', function() {
+    describe('Main page', function() {
+        it('Main page status', function(done) {
+            chai.request(app)
+                .get('/')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });    
+        it('Main page content', function(done) {
+            chai.request(app)
+                .get('/')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('msg').equal('Welcome to Class');
+                    done();
+                });
+        }); 
     });
 });
 
-it('Main page status', function(done) {
-    request('http://localhost:3001' , function(error, response, body) {
-        expect(response.statusCode).to.equal(200);
-        done();
-    });
-});

@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 app.use('/users', usersRouter);
 
 app.get('/', async (req, res) => {
-    res.send('Welcome to Class')
-})
+    res.json({ msg: 'Welcome to Class' })
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
