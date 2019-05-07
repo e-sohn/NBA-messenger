@@ -1,9 +1,18 @@
-var assert = require('assert');
-describe('Array', function() {
-    describe('#indexOf()', function() {
-        it('should return -1 when the value is not present', function() {
-            assert.equal([1, 2, 3].indexOf(4), -1);
-        });
+const chai = require('chai');
+const request = require('request');
+
+const expect = chai.expect;
+
+it('Main page content', function(done) {
+    request('http://localhost:3001', function(error, response, body) {
+        expect(body).to.equal('Welcome to Class');
+        done();
     });
 });
 
+it('Main page status', function(done) {
+    request('http://localhost:3001' , function(error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        done();
+    });
+});
