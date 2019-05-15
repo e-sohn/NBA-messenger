@@ -1,7 +1,7 @@
-From node:8
+From node:10
 
 # Create app directory 
-WORKDIR /NBA-messenger 
+WORKDIR /usr/app 
 
 # Install app dependencies 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -16,4 +16,4 @@ RUN npm install
 COPY . . 
 
 EXPOSE 3001
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]

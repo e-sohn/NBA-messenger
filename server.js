@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use('/users', usersRouter);
 
 app.get('/', async (req, res) => {
-    res.json({ msg: 'Welcome to Class' })
+    res.json({ msg: 'My Son Class' })
 });
 
 app.listen(PORT, () => {

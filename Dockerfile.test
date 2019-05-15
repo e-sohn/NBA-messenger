@@ -1,0 +1,15 @@
+# Use the production image as base image
+FROM nba-messenger_app
+
+# Copy the test files
+COPY test test
+
+# Override the NODE_ENV environment variable to 'dev', in order to get required test packages
+ENV NODE_ENV dev
+
+# Install our test framework - mocha
+RUN NPM install --only=dev
+    
+
+# Override the command, to run the test instead of the application
+CMD ["mocha", "test/test.js", "--reporter", "spec"]
